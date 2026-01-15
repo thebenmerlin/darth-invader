@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Darth Invader — an educational cyber attack simulation dashboard for learning networking and security concepts in a safe environment.">
+<meta name="generator" content="Darth Invader v1.0">
   <title>Darth Invader - Cyber Attack Simulation Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,31 +15,37 @@
 </head>
 <body>
   <!-- Educational Disclaimer -->
-  <div id="disclaimer" class="disclaimer">
+<div id="disclaimer" class="disclaimer" aria-live="polite">
     <div class="disclaimer-content">
-      <div class="disclaimer-icon">⚠️</div>
+      <div class="disclaimer-icon" aria-hidden="true">⚠️</div>
       <div>
         <h3>EDUCATIONAL SIMULATION ONLY</h3>
         <p>No real network attacks are performed. This tool is for learning cybersecurity concepts in a safe, controlled environment.</p>
       </div>
-      <button id="dismissDisclaimer" class="btn-dismiss">Understood</button>
+      <button id="dismissDisclaimer" class="btn-dismiss" title="Dismiss disclaimer">Understood</button>
     </div>
   </div>
 
+  <noscript>
+  <div style="background:#fff3cd;color:#856404;padding:12px;border-radius:6px;margin:12px;">
+    JavaScript is required for the simulation to run. Please enable JavaScript in your browser.
+  </div>
+</noscript>
+  
   <!-- Main Application -->
   <div id="app" class="app">
     <!-- Top Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
       <div class="navbar-content">
         <div class="navbar-brand">
-          <svg class="logo" width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <svg class="logo" width="32" height="32" viewBox="0 0 32 32" fill="none" role="img" aria-hidden="true">
             <path d="M16 2L4 8V16C4 24 16 30 16 30C16 30 28 24 28 16V8L16 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
             <path d="M16 10V22M10 16H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <h1>Darth Invader</h1>
         </div>
         <div class="navbar-actions">
-          <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Toggle theme">
+          <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Toggle theme" aria-pressed="false" title="Toggle theme">
             <svg class="theme-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="5"/>
               <line x1="12" y1="1" x2="12" y2="3"/>
@@ -57,7 +66,7 @@
               <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
           </div>
-          <div class="fps-counter" id="fpsCounter">60 FPS</div>
+          <div class="fps-counter" id="fpsCounter" title="Frames per second">60 FPS</div>
         </div>
       </div>
     </nav>
@@ -65,15 +74,15 @@
     <!-- Main Content -->
     <div class="main-content">
       <!-- Left Sidebar - Scenario Selector -->
-      <aside class="sidebar sidebar-left">
-        <h2 class="sidebar-title">Attack Scenarios</h2>
-        <div class="scenario-list" id="scenarioList">
-          <button class="scenario-card active" data-scenario="ddos">
-            <div class="scenario-icon">💥</div>
+      <aside class="sidebar sidebar-left" aria-labelledby="scenariosHeading">
+        <h2 id="scenariosHeading" class="sidebar-title">Attack Scenarios</h2>
+        <div class="scenario-list" id="scenarioList" role="list">
+        <button class="scenario-card active" data-scenario="ddos" title="DDoS Attack" role="listitem">
+            <div class="scenario-icon" aria-hidden="true">💥</div>
             <div class="scenario-info">
-              <h3>DDoS Attack</h3>
+             <h3>DDoS Attack</h3>
               <p>Multiple attackers flood server</p>
-            </div>
+         </div>
           </button>
           <button class="scenario-card" data-scenario="mitm">
             <div class="scenario-icon">🕵️</div>
@@ -82,15 +91,22 @@
               <p>Intercept communication</p>
             </div>
           </button>
-          <button class="scenario-card" data-scenario="firewall">
-            <div class="scenario-icon">🛡️</div>
+          <button class="scenario-card" data-scenario="mitm" title="Man-in-the-Middle" role="listitem">
+               <div class="scenario-icon" aria-hidden="true">🕵️</div>
+              <div class="scenario-info">
+              <h3>Man-in-the-Middle</h3>
+             <p>Intercept communication</p>
+             </div>
+           </button>
+              <button class="scenario-card" data-scenario="firewall" title="Firewall Defense" role="listitem">
+            <div class="scenario-icon" aria-hidden="true">🛡️</div>
             <div class="scenario-info">
               <h3>Firewall Defense</h3>
               <p>Filter malicious traffic</p>
             </div>
           </button>
-          <button class="scenario-card" data-scenario="arpSpoof">
-            <div class="scenario-icon">🔀</div>
+          <button class="scenario-card" data-scenario="arpSpoof" title="ARP Spoofing" role="listitem">
+            <div class="scenario-icon" aria-hidden="true">🔀</div>
             <div class="scenario-info">
               <h3>ARP Spoofing</h3>
               <p>Poison ARP cache</p>
@@ -100,45 +116,45 @@
 
         <div class="session-controls">
           <h3 class="section-title">Session</h3>
-          <button class="btn-secondary btn-full" id="exportSession">
+          <button class="btn-secondary btn-full" id="exportSession" title="Export session as JSON">
             <span>📥 Export</span>
           </button>
-          <button class="btn-secondary btn-full" id="importSession">
+          <button class="btn-secondary btn-full" id="importSession" title="Import session from JSON">
             <span>📤 Import</span>
           </button>
-          <input type="file" id="fileInput" accept=".json" style="display: none;">
+          <input type="file" id="fileInput" accept=".json,application/json" style="display: none;" aria-hidden="true">
         </div>
       </aside>
 
       <!-- Center Panel - Canvas Visualization -->
-      <main class="canvas-container">
+      <main class="canvas-container" role="main" aria-labelledby="scenarioTitle">
         <div class="canvas-header">
           <h2 id="scenarioTitle">DDoS Attack Simulation</h2>
           <div class="seed-display">
             <span>Seed:</span>
-            <input type="number" id="seedInput" value="12345" class="seed-input">
+            <input type="number" id="seedInput" value="12345" class="seed-input" title="Random seed for deterministic simulations">
           </div>
         </div>
         <div class="canvas-wrapper">
-          <canvas id="simulationCanvas" width="800" height="600"></canvas>
+          <canvas id="simulationCanvas" width="800" height="600" aria-label="Simulation visualization"></canvas>
         </div>
         <div class="control-panel">
           <div class="control-buttons">
-            <button id="startBtn" class="btn-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <button id="startBtn" class="btn-primary" title="Start simulation">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <polygon points="5 3 19 12 5 21 5 3"/>
               </svg>
               <span>Start</span>
             </button>
-            <button id="pauseBtn" class="btn-secondary" disabled>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <button id="pauseBtn" class="btn-secondary" disabled title="Pause simulation">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <rect x="6" y="4" width="4" height="16"/>
                 <rect x="14" y="4" width="4" height="16"/>
               </svg>
               <span>Pause</span>
             </button>
-            <button id="resetBtn" class="btn-secondary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button id="resetBtn" class="btn-secondary" title="Reset simulation">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <polyline points="1 4 1 10 7 10"/>
                 <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
               </svg>
@@ -151,63 +167,63 @@
                 <span>Speed:</span>
                 <span id="speedValue">1.0x</span>
               </label>
-              <input type="range" id="speedSlider" min="0.5" max="5" step="0.5" value="1" class="slider">
+              <input type="range" id="speedSlider" min="0.5" max="5" step="0.5" value="1" class="slider" title="Simulation speed multiplier">
             </div>
             <div class="slider-group">
               <label for="intensitySlider">
                 <span>Intensity:</span>
                 <span id="intensityValue">50%</span>
               </label>
-              <input type="range" id="intensitySlider" min="10" max="100" step="10" value="50" class="slider">
+              <input type="range" id="intensitySlider" min="10" max="100" step="10" value="50" class="slider" title="Attack intensity level">
             </div>
           </div>
         </div>
       </main>
 
       <!-- Right Sidebar - Metrics Panel -->
-      <aside class="sidebar sidebar-right">
-        <h2 class="sidebar-title">Live Metrics</h2>
+      <aside class="sidebar sidebar-right" aria-labelledby="metricsHeading">
+        <h2 id="metricsHeading" class="sidebar-title">Live Metrics</h2>
         
         <div class="metrics-grid">
           <div class="metric-card">
             <div class="metric-label">Packets Sent</div>
-            <div class="metric-value" id="metricPacketsSent">0</div>
+            <div class="metric-value" id="metricPacketsSent" role="status" aria-live="polite">0</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Packets Received</div>
-            <div class="metric-value" id="metricPacketsReceived">0</div>
+            <div class="metric-value" id="metricPacketsReceived" role="status" aria-live="polite">0</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Packets Dropped</div>
-            <div class="metric-value" id="metricPacketsDropped">0</div>
+            <div class="metric-value" id="metricPacketsDropped" role="status" aria-live="polite">0</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Packets Blocked</div>
-            <div class="metric-value" id="metricPacketsBlocked">0</div>
+            <div class="metric-value" id="metricPacketsBlocked" role="status" aria-live="polite">0</div>
           </div>
         </div>
 
-        <div class="server-health">
+        <div class="server-health" aria-hidden="false">
           <div class="health-header">
             <span>Server Load</span>
             <span id="serverLoadPercent">0%</span>
           </div>
-          <div class="health-bar">
+          <div class="health-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Server load">
             <div class="health-bar-fill" id="serverLoadBar" style="width: 0%"></div>
           </div>
         </div>
 
         <div class="latency-display">
           <div class="latency-label">Average Latency</div>
-          <div class="latency-value" id="latencyValue">0 ms</div>
+          <div class="latency-value" id="latencyValue" aria-live="polite">0 ms</div>
         </div>
 
         <div class="chart-container">
-          <canvas id="metricsChart"></canvas>
+          <canvas id="metricsChart" aria-label="Metrics chart"></canvas>
         </div>
 
-        <div class="simulation-status">
-          <div class="status-indicator" id="statusIndicator">●</div>
+        <div class="simulation-status" aria-live="polite">
+          <div class="status-indicator" id="statusIndicator" aria-hidden="true">●</div>
           <span id="statusText">Ready</span>
         </div>
       </aside>
